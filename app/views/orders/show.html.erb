@@ -1,5 +1,7 @@
-<p id="notice"><%= notice %></p>
+<% case @selection_id %>
+<% when "-1" %>
+  <%= render 'pending_orders' %>
+<% else %>
+  <%= render 'products_by_vendor' %>
+<% end %>
 
-
-<%= link_to 'Edit', edit_order_path(@order) %> |
-<%= link_to 'Back', orders_path %>

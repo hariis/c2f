@@ -1,30 +1,36 @@
-require 'bigcommerce'
+require_relative 'order_helper'
 class Order < ActiveRecord::Base
+  extend OrderHelper
   has_many :products
   def self.gather
-    @api = BigCommerce::Api.new({
-        :store_url => "https://store-6dfb2.mybigcommerce.com",
-        :username  => "apiuser",
-        :api_key   => "7dd8478259753daec9323f0f0f012b59"
-    })
+        @api = Order.get_api_handle
+
         #get all orders
         @api.get_orders.each do |jo|
-            o = Order.new(:parent_order_id => jo["id"], :date_created => jo["date_modified"], :status => jo["status"], :customer_message => jo["customer_message"],
-            :is_deleted => jo["is_deleted"])
-            o.save
-
+            next if Order.order_already_exists?(jo["id"].to_i)
+            o = Order.create_new_order(jo)
 
             #gather products for each order
             @api.get_order_products(jo["id"].to_s).each do |product|
-              p = Product.new(:name => product["name"], :base_price => product["base_price"].to_f, :quantity => product["quantity"], :order_id => o.id,
-              :product_id => product["product_id"].to_i)
-              #get the product details to get the brand
-              actual_product = @api.get_product(product["product_id"].to_s)
-              p.brand_id = actual_product["brand_id"]
-              p.save
+              Order.create_new_product(product, o)
             end
-       end
+       end #get_orders
 
+    end #def
+    def self.get_products_by_vendor(vendor_id)
+      products_by_vendor = {}
+      pending_orders = Order.find_all_by_status("Awaiting Fulfillment")
+      pending_orders.each do |order|
+          pending_products = order.products.find_all{|p| p if p.brand_id == vendor_id}
+          next if pending_products.count == 0
+          #save this product
+          pending_products.each do |p|
+              products_by_vendor[p.name] = 0 if products_by_vendor[p.name].nil?
+              products_by_vendor[p.name] = products_by_vendor[p.name] + p.quantity
+          end
+      end
+      return products_by_vendor
     end
+
 end
 

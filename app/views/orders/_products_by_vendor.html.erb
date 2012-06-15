@@ -1,0 +1,14 @@
+<h1><%= Vendor::NAMES[@selection_id] %></h1>
+
+<h2>Listing Products for fulfillment</h2>
+<table>
+<tr> <th>Quantity</th><th>Product</th> </tr>
+<%= @products_by_vendor.count %>
+<% @products_by_vendor.each_pair do |name,quantity| %>
+    <tr>
+      <td><%= quantity %></td>
+      <td><%= name %></td>
+    </tr>
+<% end %>
+</table>
+

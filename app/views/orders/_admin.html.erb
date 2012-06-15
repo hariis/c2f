@@ -1,0 +1,9 @@
+<h1>Welcome Admin</h1>
+
+<%= label_tag "Choose a View" %>
+<%= select_tag :selection_id,  options_for_select(Vendor::CHOOSE_VIEW), {:selected => 'KooKoolan Farms',:prompt => 'Please Select'} %>
+
+<div id="view_data">
+
+</div>
+

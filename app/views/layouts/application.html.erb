@@ -5,9 +5,26 @@
   <%= stylesheet_link_tag    "application", :media => "all" %>
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function(){
+        $('#selection_id').change(function() {
+             var value = $('#selection_id :selected').val();
+             if(value == "") return;
+		         $.ajax({url: 'http://localhost:3000/orders/show',
+                data: 'selection_id=' + value,
+                success: function(data){
+                $('#view_data').html(data);
+          }
+      })
+
+			});
+		});
+</script>
 </head>
 <body>
 <h1>Connect2Fresh - Vendors </h1>
+<%= link_to "Logout", "/logout" if !session[:vendor_id].nil? %>
 <%= yield %>
 
 </body>

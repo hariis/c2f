@@ -1,0 +1,16 @@
+<h2>Listing All Pending Orders</h2>
+<table>
+<% @orders.each do |order| %>
+  <% products = order.products.find_all %>
+  <% next if products.count == 0 %>
+  <tr> <td><h3>Order No. <%= order.parent_order_id %></td><td><%= order.status %></h3></td> </tr>
+  <tr> <th>Quantity</th><th>Product</th> </tr>
+  <% products.each do |product| %>
+    <tr>
+      <td><%= product.quantity %></td>
+      <td><%= product.name %></td>
+    </tr>
+  <% end %>
+<% end %>
+</table>
+

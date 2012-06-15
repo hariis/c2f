@@ -1,18 +1,7 @@
 <%= flash[:notice] %>
-Welcome <%= Vendor::NAMES[@current_vendor.brand_id] %>
-<h1>Listing orders</h1>
-
-<table>
-<% @orders.each do |order| %>
-  <% products = order.products.find_all{|p| p if p.brand_id == @current_vendor.brand_id} %>
-  <% next if products.count == 0 %>
-  <tr> <td>Order No. <%= order.parent_order_id %></td><td><%= order.status %></td> </tr>
-  <% products.each do |product| %>
-    <tr>
-      <td><%= product.quantity %> x <%= product.name %></td>
-    </tr>
-  <% end %>
-
+<% if @current_vendor.brand_id == "-1" %>
+<%= render 'admin' %>
+<% else %>
+<%= render 'vendor' %>
 <% end %>
-</table>
 

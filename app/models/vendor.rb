@@ -4,6 +4,7 @@ class Vendor < ActiveRecord::Base
   validates_presence_of :password, :on => :create
   validates_presence_of :brand_id
   #todo add validation for email
-  NAMES = { "1" => "Kiyosaki Farms", "2" => "Mt.Hood Farms", "3" => "KooKoolan Farms", "4" => "JandK Growers", "5" => "GreenVille Farms", "-1" => "Admin" }
+  NAMES = { "3" => "KooKoolan Farms", "4" => "JandK Growers", "-1" => "Admin" }
+  CHOOSE_VIEW = { "All Pending Orders" => "-1", "KooKoolan Farms" => "3" , "JandK Growers" => "4"}
 end
 

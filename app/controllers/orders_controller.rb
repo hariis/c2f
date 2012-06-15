@@ -3,8 +3,8 @@ class OrdersController < ApplicationController
   # GET /orders
   # GET /orders.json
   def index
-    @orders = Order.all
-
+    @orders = Order.find_all_by_status("Awaiting Fulfillment")
+    @products_by_vendor = Order.get_products_by_vendor(@current_vendor.brand_id)
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @orders }
@@ -20,11 +20,15 @@ class OrdersController < ApplicationController
   # GET /orders/1
   # GET /orders/1.json
   def show
-    @order = Order.find(params[:id])
-
+    @orders = Order.find_all_by_status("Awaiting Fulfillment")
+    @selection_id = params[:selection_id]
+    if @selection_id != "-1"
+        @products_by_vendor = Order.get_products_by_vendor(@selection_id)
+    end
     respond_to do |format|
-      format.html # show.html.erb
+      format.html {render :layout => false}
       format.json { render json: @order }
+      format.js
     end
   end
 

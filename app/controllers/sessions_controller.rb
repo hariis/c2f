@@ -6,7 +6,7 @@ class SessionsController < ApplicationController
     vendor = Vendor.find_by_email(params[:email])
     if vendor && vendor.authenticate(params[:password])
       session[:vendor_id] = vendor.id
-      redirect_to root_url, :notice => "Logged in!"
+      redirect_to root_url, :notice => ""
     else
       flash.now.alert = "Invalid email or password"
       render "new"
