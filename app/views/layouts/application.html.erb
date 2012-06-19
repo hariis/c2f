@@ -23,8 +23,12 @@
 </script>
 </head>
 <body>
+<div id="header" class="container clearfix">
 <h1>Connect2Fresh - Vendors </h1>
+<div id="navigation">
 <%= link_to "Logout", "/logout" if !session[:vendor_id].nil? %>
+</div>
+</div>
 <%= yield %>
 
 </body>

@@ -1,12 +1,14 @@
 body {
   background-color: #fff;
   color: #333;
-  font-family: verdana, arial, helvetica, sans-serif;
+  font-family: helvetica,verdana, arial, helvetica, sans-serif;
   font-size: 13px;
-  line-height: 18px; }
+  line-height: 18px;
+  width: 950px;
+  margin: auto;}
 
 p, ol, ul, td {
-  font-family: verdana, arial, helvetica, sans-serif;
+  font-family: helvetica,verdana, arial, helvetica, sans-serif;
   font-size: 13px;
   line-height: 18px; }
 
@@ -42,7 +44,7 @@ div {
   padding-bottom: 0;
   margin-bottom: 20px;
   background-color: #f0f0f0;
-  h2 {
+h2 {
     text-align: left;
     font-weight: bold;
     padding: 5px 5px 5px 15px;
@@ -54,3 +56,44 @@ div {
   ul li {
     font-size: 12px;
     list-style: square; } }
+
+ #navigation {
+    float: right;
+    font-size: 1.4em;
+    margin-top: 35px;
+}
+#header h1 {
+    display: block;
+    float: left;
+    height: 43px;
+    margin-top: 35px;
+    width: 500px;
+}
+.clearfix:after {
+    clear: both;
+}
+.clearfix:before, .clearfix:after {
+    content: " ";
+    display: block;
+    height: 0;
+    visibility: hidden;
+}
+.clearfix:before, .clearfix:after {
+    content: " ";
+    display: block;
+    height: 0;
+    visibility: hidden;
+}
+#header {
+    height: 80px;
+    position: relative;
+    z-index: 98;
+    border-bottom: 1px solid;
+}
+.container {
+    margin: 0 auto;
+    width: 950px;
+}
+.clearfix {
+}
+
