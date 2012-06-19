@@ -7,7 +7,9 @@ private
   end
 
   helper_method :current_vendor
-
+  def ensure_admin_login
+    current_vendor.brand_id == -1 if current_vendor
+  end
   def require_login
     unless logged_in?
       flash[:error] = "You must be logged in to access this section"

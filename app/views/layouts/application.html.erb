@@ -11,7 +11,7 @@
         $('#selection_id').change(function() {
              var value = $('#selection_id :selected').val();
              if(value == "") return;
-		         $.ajax({url: 'http://50.116.14.222/orders/show',
+		         $.ajax({url: '/orders/show',
                 data: 'selection_id=' + value,
                 success: function(data){
                 $('#view_data').html(data);

@@ -1,20 +1,21 @@
 class OrdersController < ApplicationController
-  before_filter :require_login, :except => 'gather'
+  before_filter :require_login, :except => 'sync'
+  before_filter :ensure_admin_login, :only => 'sync'
   # GET /orders
   # GET /orders.json
   def index
     @orders = Order.find_all_by_status("Awaiting Fulfillment")
-    @products_by_vendor = Order.get_products_by_vendor(@current_vendor.brand_id)
+    @products_by_vendor = Order.get_products_by_vendor(current_vendor.brand_id)
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @orders }
     end
   end
 
-  def gather
+  def sync
     @products = Order.gather
     respond_to do |format|
-      format.html {redirect_to orders_url}
+      format.html {redirect_to orders_url, notice: 'Sync successful.'}
     end
   end
   # GET /orders/1

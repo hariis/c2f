@@ -17,7 +17,16 @@
       o.save
       return o
     end
-
+    def update_order_status(ord, jo)
+      if ord.status != jo["status"]
+        ord.status = jo["status"]
+        ord.save
+      end
+      if ord.is_deleted != jo["is_deleted"]
+        ord.is_deleted = jo["is_deleted"]
+        ord.save
+      end
+    end
     def create_new_product(product, o)
       p = Product.new(:name => product["name"], :base_price => product["base_price"].to_f, :quantity => product["quantity"], :order_id => o.id,
               :product_id => product["product_id"].to_i)

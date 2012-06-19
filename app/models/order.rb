@@ -7,12 +7,17 @@ class Order < ActiveRecord::Base
 
         #get all orders
         @api.get_orders.each do |jo|
-            next if Order.order_already_exists?(jo["id"].to_i)
-            o = Order.create_new_order(jo)
+            ord = Order.order_already_exists?(jo["id"].to_i)
+            if ord
+              Order.update_order_status(ord, jo)
+              next
+            else
+              ord = Order.create_new_order(jo)
+            end
 
             #gather products for each order
             @api.get_order_products(jo["id"].to_s).each do |product|
-              Order.create_new_product(product, o)
+              Order.create_new_product(product, ord)
             end
        end #get_orders
 

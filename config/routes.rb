@@ -1,7 +1,7 @@
 VendorsC2f::Application.routes.draw do
     resources :orders do
       collection do
-        get 'gather'
+        get 'sync'
       end
     end
   root :to => 'orders#index'
